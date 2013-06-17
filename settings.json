@@ -1,0 +1,5 @@
+{
+    "featuredFeed": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom",
+    "picturedFeed": "/w/api.php?action=featuredfeed&amp;feed=potd&amp;feedformat=atom",
+    "qotdFeed": "/w/api.php?action=featuredfeed&amp;feed=onthisday&amp;feedformat=atom"
+}
