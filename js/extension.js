@@ -6,13 +6,13 @@ function WikipediaExtensionController($scope, $http) {
 
         if ($scope.settings.featuredFeed) {
             $http.get($scope.settings.featuredFeed).success(function (featuredFeeds) {
-                console.log('Featured Feeds = ', featuredFeeds);
+                console.log('Featured Feeds = ', featuredFeeds.feed);
             });
         }
     })
 }
 WikipediaExtensionController.$inject = ['$scope', '$http'];
 
-angular.module('wikipedia', [], function (){
+angular.module('wikipedia', ["ngSanitize"], function (){
     console.log('Wikipedia module initialised');
 });
