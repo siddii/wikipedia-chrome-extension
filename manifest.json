@@ -1,0 +1,28 @@
+{
+    "name": "Wikipedia",
+    "version": "1.0.0",
+    "icons": {
+        "128": "wikipedia-icon.png"
+    },
+    "description": "Chrome extension for Wikipedia fans!",
+    "background": {
+        "persistent": false,
+        "page": "background.html"
+    },
+    "permissions": [
+        "bookmarks",
+        "tabs",
+        "*://*.wikipedia.org/"
+    ],
+    "browser_action": {
+        "default_title": "Wikipedia",
+        "default_icon": "wikipedia-icon.png",
+        "default_popup": "popup.html"
+    },
+    "manifest_version": 2,
+    "web_accessible_resources": [
+        "angular/*.js",
+        "jquery/*.js",
+        "bootstrap/*.js"
+    ]
+}

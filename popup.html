@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="wikipedia">
+<head>
+    <meta charset="utf-8">
+    <title>Wikipedia Chrome Extension</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="@siddii">
+
+    <!-- Le styles -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet"/>
+    <link href="css/extension.css" rel="stylesheet"/>
+
+    <script src="jquery/jquery-1.9.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="angular/angular.js"></script>
+    <script src="js/extension.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row-fluid">
+        <div class="span6">
+            <h2>Wikipedia</h2>
+        </div>
+        <div class="span6">
+            <form class="form-search">
+                <input type="text" class="input-medium search-query" placeholder="Search"/>
+            </form>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li><a href="#home" data-toggle="tab">Featured Articles</a></li>
+        <li><a href="#profile" data-toggle="tab">Featured Pictures</a></li>
+        <li><a href="#messages" data-toggle="tab">Quote of the day</a></li>
+    </ul>
+
+</div>
+</body>
+</html>
