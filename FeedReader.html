@@ -5,6 +5,7 @@
     <title>AngularJS Feed Reader - jsFiddle demo</title>
     <script type='text/javascript' src="jquery/jquery-1.9.1.min.js"></script>
     <script type='text/javascript' src='angular/angular.min.js'></script>
+    <script type='text/javascript' src='js/services.js'></script>
     <!--<script type='text/javascript' src='angular/angular-sanitize.js'></script>-->
     <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css">
@@ -24,16 +25,22 @@
 
         'use strict';
 
-        var App = angular.module('RSSFeedApp', []);
+        var App = angular.module('RSSFeedApp', ['wikipedia-services']);
 
-        App.controller("FeedCtrl", ['$scope','FeedService', function ($scope,Feed) {
+        App.controller("FeedCtrl", ['$scope','FeedService', 'settings', function ($scope,Feed, settings) {
+            console.log('Settings = ', settings.getLanguages());
             $scope.loadButonText="Load";
             $scope.loadFeed=function(e){
                 Feed.parseFeed($scope.feedSrc).then(function(res){
                     $scope.loadButonText=angular.element(e.target).text();
                     $scope.feeds=res.data.responseData.feed.entries;
-                    for(var entry in $scope.feeds) {
-                        console.log('entry = ', entry.content);
+                    for(var i=0; i < $scope.feeds.length; i++) {
+                        console.log('entry = ', $scope.feeds[i].content);
+                        var newElement = angular.element($scope.feeds[i].content).find('img').each(function (idx, node) {
+                            node.src = 'http:' + node.src;
+                        });
+
+                        $scope.feeds[i].content = newElement.html();
                     }
                     console.log('########## $scope.feeds = ', $scope.feeds);
                 });
@@ -47,6 +54,7 @@
                 }
             }
         }]);
+
 
         //]]>
     </script>
@@ -66,11 +74,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" ng-click="feedSrc='http://rss.cnn.com/rss/cnn_topstories.rss';loadFeed($event);">CNN</a></li>
-                            <li><a href="#" ng-click="feedSrc='http://news.ycombinator.com/rss';loadFeed($event)">Hacker News</a></li>
-                            <li><a href="#" ng-click="feedSrc='http://feeds2.feedburner.com/Mashable';loadFeed($event)">Mashable</a></li>
-                            <li><a href="#" ng-click="feedSrc='http://feeds.huffingtonpost.com/huffingtonpost/raw_feed';loadFeed($event)">Huffington Post</a></li>
-                            <li><a href="#" ng-click="feedSrc='http://feeds.feedburner.com/TechCrunch';loadFeed($event)">TechCrunch</a></li>
+                            <li><a href="#" ng-click="feedSrc='http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom';loadFeed($event)">Wikipedia Featured Article</a></li>
                             <li><a href="#" ng-click="feedSrc='http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom';loadFeed($event)">Wikipedia Featured Article</a></li>
                         </ul>
                     </div>

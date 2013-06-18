@@ -1,5 +1,21 @@
 {
-    "featuredFeed": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom",
-    "picturedFeed": "/w/api.php?action=featuredfeed&amp;feed=potd&amp;feedformat=atom",
-    "qotdFeed": "/w/api.php?action=featuredfeed&amp;feed=onthisday&amp;feedformat=atom"
+    "default": "en",
+    "en": {
+        "language": "English",
+        "baseURL": "http://en.wikipedia.org",
+        "feeds": [
+            {
+                "title": "Wikipedia Featured Articles",
+                "url": "/w/api.php?action=featuredfeed&amp;feed=featured&amp;feedformat=atom"
+            },
+            {
+                "title": "Wikipedia Featured Pictures",
+                "url": "/w/api.php?action=featuredfeed&amp;feed=potd&amp;feedformat=atom"
+            },
+            {
+                "title": "Wikipedia Quote Of the Day",
+                "url": "/w/api.php?action=featuredfeed&amp;feed=onthisday&amp;feedformat=atom"
+            }
+        ]
+    }
 }
