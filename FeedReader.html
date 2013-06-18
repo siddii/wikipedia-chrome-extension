@@ -28,11 +28,8 @@
         var App = angular.module('RSSFeedApp', ['wikipedia-services']);
 
         App.controller("FeedCtrl", ['$scope','FeedService', 'settings', function ($scope,Feed, settings) {
-            console.log('Settings = ', settings.getLanguages());
-            $scope.loadButonText="Load";
-            $scope.loadFeed=function(e){
+            $scope.loadFeed=function(){
                 Feed.parseFeed($scope.feedSrc).then(function(res){
-                    $scope.loadButonText=angular.element(e.target).text();
                     $scope.feeds=res.data.responseData.feed.entries;
                     for(var i=0; i < $scope.feeds.length; i++) {
                         console.log('entry = ', $scope.feeds[i].content);
@@ -44,7 +41,10 @@
                     }
                     console.log('########## $scope.feeds = ', $scope.feeds);
                 });
-            }
+            };
+
+            $scope.feedSrc = 'http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom';
+            $scope.loadFeed();
         }]);
 
         App.factory('FeedService',['$http',function($http){
@@ -64,28 +64,32 @@
 <body>
 <div class="container-fluid">
     <div data-ng-controller="FeedCtrl">
+        <!--<div class="row-fluid">-->
+            <!--<h4>Feed Reader using AngularJS</h4>-->
+            <!--<form>-->
+                <!--<div class="input-prepend span12">-->
+                    <!--<div class="btn-group">-->
+                        <!--<button class="btn btn-info" type="button" tabindex="-1">{{loadButonText}}</button>-->
+                        <!--<button class="btn btn-info dropdown-toggle" data-toggle="dropdown" tabindex="-1">-->
+                            <!--<span class="caret"></span>-->
+                        <!--</button>-->
+                        <!--<ul class="dropdown-menu">-->
+                            <!--<li><a href="#" ng-click="feedSrc='http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom';loadFeed($event)">Wikipedia Featured Article</a></li>-->
+                            <!--<li><a href="#" ng-click="feedSrc='http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom';loadFeed($event)">Wikipedia Featured Article</a></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                    <!--<input type="text" class="span10" autocomplete="off" placeholder="Enter Feed URL" data-ng-model="feedSrc" />-->
+                <!--</div>-->
+                <!--<div class="input-prepend">-->
+                    <!--<span class="add-on"><i class=" icon-search"></i></span>count-->
+                    <!--<input class="span12" type="text" data-ng-model="filterText" />-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
         <div class="row-fluid">
-            <h4>Feed Reader using AngularJS</h4>
-            <form>
-                <div class="input-prepend span12">
-                    <div class="btn-group">
-                        <button class="btn btn-info" type="button" tabindex="-1">{{loadButonText}}</button>
-                        <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" tabindex="-1">
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" ng-click="feedSrc='http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom';loadFeed($event)">Wikipedia Featured Article</a></li>
-                            <li><a href="#" ng-click="feedSrc='http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom';loadFeed($event)">Wikipedia Featured Article</a></li>
-                        </ul>
-                    </div>
-                    <input type="text" class="span10" autocomplete="off" placeholder="Enter Feed URL" data-ng-model="feedSrc" />
-                </div>
-                <div class="input-prepend">
-                    <span class="add-on"><i class=" icon-search"></i></span>count
-                    <input class="span12" type="text" data-ng-model="filterText" />
-                </div>
-            </form>
+            <h3>Source: {{feedSrc}}</h3>
         </div>
+
         <div class="row-fluid">
             <ul class="unstyled">
                 <span class="badge badge-warning" ng-show="feeds.length > 0">{{(feeds | filter:filterText).length}} Items</span>
