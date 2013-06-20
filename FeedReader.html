@@ -32,14 +32,19 @@
                 Feed.parseFeed($scope.feedSrc).then(function(res){
                     $scope.feeds=res.data.responseData.feed.entries;
                     for(var i=0; i < $scope.feeds.length; i++) {
-                        console.log('entry = ', $scope.feeds[i].content);
-                        var newElement = angular.element($scope.feeds[i].content).find('img').each(function (idx, node) {
-                            node.src = 'http:' + node.src;
+//                        console.log('entry = ', $scope.feeds[i].content);
+                        console.log('############ ENTRY JSON = ', angular.toJson($scope.feeds[i].content));
+                        var feedElement = angular.element($scope.feeds[i].content);
+                        feedElement.find('img').each(function (idx, imgNode) {
+                            imgNode.src = imgNode.src.replace('file:', 'http:');
                         });
-
-                        $scope.feeds[i].content = newElement.html();
+                        feedElement.find('a').each(function (idx, aNode) {
+                            console.log('########   aNode = ', aNode.href);
+                            aNode.target = "_new";
+                            aNode.href = aNode.href.replace('file:', 'http:');
+                        });
+                        $scope.feeds[i].content = feedElement.html();
                     }
-                    console.log('########## $scope.feeds = ', $scope.feeds);
                 });
             };
 
