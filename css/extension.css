@@ -6,3 +6,12 @@ body {
 .form-search {
      padding-top: 15px;
  }
+
+h3 {
+    text-align: center;
+    color: #000000;
+}
+
+a {
+    color: #000000;
+}

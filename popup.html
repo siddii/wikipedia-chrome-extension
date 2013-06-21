@@ -42,8 +42,8 @@
     <div ng-controller="WikipediaExtensionController">
         <div class="row-fluid">
             <ul class="unstyled">
-                <li ng-repeat="feed in feeds | orderBy: '-publishedDate' | limitTo: 1">
-                    <h5><a target="_blank" href="{{feed.link}}">{{feed.title}}</a></h5>
+                <li ng-repeat="feed in feeds">
+                    <h3><a target="_blank" href="{{feed.link}}">{{feed.title}}</a></h3>
                     <p class="text-left" ng-bind-html-unsafe="feed.content"></p>
                     <span class="small">{{feed.publishedDate}}</span>
                 </li>

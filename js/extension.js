@@ -14,8 +14,14 @@ function WikipediaExtensionController($scope, $http, Feed) {
     $scope.loadFeed=function(){
         Feed.parseFeed($scope.feedSrc).then(function(res){
             $scope.feeds=res.data.responseData.feed.entries;
+            if ($scope.feeds.length > 0) {
+                $scope.feeds.sort(function (feed1, feed2) {
+                  return new Date(feed1.publishedDate) > new Date(feed2.publishedDate);
+                });
+            }
             for(var i=0; i < $scope.feeds.length; i++) {
-                var feedElement = angular.element($scope.feeds[i].content);
+                console.log('################# $scope.feeds[i].content BEFORE = ', $scope.feeds[i].content);
+                var feedElement = angular.element('<div>' + $scope.feeds[i].content + '</div>');
                 feedElement.find('img').each(function (idx, imgNode) {
                     imgNode.src = imgNode.src.replace('chrome-extension:', 'http:');
                 });
@@ -24,6 +30,7 @@ function WikipediaExtensionController($scope, $http, Feed) {
                     aNode.href = aNode.href.replace('file:', 'http:');
                 });
                 $scope.feeds[i].content = feedElement.html();
+                console.log('################# $scope.feeds[i].content AFTER = ', $scope.feeds[i].content);
             }
         });
     };
