@@ -15,3 +15,7 @@ h3 {
 a {
     color: #000000;
 }
+
+.carousel-control {
+    top: 0;
+}
