@@ -12,7 +12,7 @@ h3 {
     color: #000000;
 }
 
-a {
+a, a:active, a:hover {
     color: #000000;
 }
 
