@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="wikipedia">
+<html lang="en" ng-csp ng-app="wikipedia">
 <head>
     <meta charset="utf-8">
     <title>Wikipedia Chrome Extension</title>
@@ -15,6 +15,7 @@
     <script src="jquery/jquery-1.9.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="angular/angular.js"></script>
+    <script src="angular/angular-sanitize.js"></script>
     <script src="js/extension.js"></script>
 </head>
 
@@ -39,7 +40,15 @@
     </ul>
 
     <div ng-controller="WikipediaExtensionController">
-        {{settings.featuredFeed}}
+        <div class="row-fluid">
+            <ul class="unstyled">
+                <li ng-repeat="feed in feeds | orderBy: '-publishedDate' | limitTo: 1">
+                    <h5><a target="_blank" href="{{feed.link}}">{{feed.title}}</a></h5>
+                    <p class="text-left" ng-bind-html-unsafe="feed.content"></p>
+                    <span class="small">{{feed.publishedDate}}</span>
+                </li>
+            </ul>
+        </div>
     </div>
 
 </div>
