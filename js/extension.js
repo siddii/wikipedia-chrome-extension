@@ -11,6 +11,8 @@ function WikipediaExtensionController($scope, $http, Feed) {
 //        }
 //    });
 
+    var extensionURL = chrome.extension.getURL('/');
+
     $scope.loadFeed=function(){
         Feed.parseFeed($scope.feedSrc).then(function(res){
             $scope.feeds=res.data.responseData.feed.entries;
@@ -20,27 +22,31 @@ function WikipediaExtensionController($scope, $http, Feed) {
                 });
             }
             for(var i=0; i < $scope.feeds.length; i++) {
-                console.log('################# $scope.feeds[i].content BEFORE = ', $scope.feeds[i].content);
                 var feedElement = angular.element('<div>' + $scope.feeds[i].content + '</div>');
                 feedElement.find('img').each(function (idx, imgNode) {
-                    imgNode.src = imgNode.src.replace('chrome-extension:', 'http:');
+                    imgNode.src = imgNode.src.replace('chrome-extension://', 'http://');
                 });
                 feedElement.find('a').each(function (idx, aNode) {
                     aNode.target = "_new";
                     aNode.href = aNode.href.replace('file:', 'http:');
+                    aNode.href = aNode.href.replace(extensionURL, 'http://en.wikipedia.org/');
                 });
                 $scope.feeds[i].content = feedElement.html();
-                console.log('################# $scope.feeds[i].content AFTER = ', $scope.feeds[i].content);
+                console.log('######### $scope.feeds[i].content = ', $scope.feeds[i].content);
             }
         });
     };
 
     $scope.feedSrc = 'http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom';
     $scope.loadFeed();
+
+    $('#feed-carousel').bind('slide', function (){
+
+    });
 }
 WikipediaExtensionController.$inject = ['$scope', '$http', 'FeedService'];
 
-var App = angular.module('wikipedia', ["ngSanitize"], function (){
+var App = angular.module('wikipedia', [], function (){
     console.log('Wikipedia module initialised');
 });
 

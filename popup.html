@@ -34,15 +34,16 @@
     </div>
 
     <ul class="nav nav-tabs">
-        <li><a href="#home" data-toggle="tab">Featured Articles</a></li>
-        <li><a href="#profile" data-toggle="tab">Featured Pictures</a></li>
-        <li><a href="#messages" data-toggle="tab">Quote of the day</a></li>
+        <li class="active"><a href="#featured-articles" data-toggle="tab">Featured Articles</a></li>
+        <li><a href="#featured-pictures" data-toggle="tab">Featured Pictures</a></li>
+        <li><a href="#qotd" data-toggle="tab">Quote of the day</a></li>
     </ul>
 
-    <div ng-controller="WikipediaExtensionController">
-        <div class="row-fluid">
+    <div class="tab-content" ng-controller="WikipediaExtensionController">
+        <div class="tab-pane fade in active" id="featured-articles">
+            <div class="row-fluid">
                 <div class="span12">
-                    <div id="feed-carousel" class="carousel slide" data-interval="false">
+                    <div id="featured-articles-carousel" class="carousel slide" data-interval="false">
                         <!-- Carousel items -->
                         <div class="carousel-inner">
                             <div ng-repeat="feed in feeds" class="item" ng-class="{active : $index==(feeds.length-1)}">
@@ -50,13 +51,32 @@
                                 <p class="text-left" ng-bind-html-unsafe="feed.content"></p>
                             </div>
                         </div>
-                        <a class="carousel-control left" href="#feed-carousel" ng-hide="$index==0" data-slide="prev">&lsaquo;</a>
-                        <a class="carousel-control right" href="#feed-carousel" ng-hide="$index==(feeds.length-1)" data-slide="next">&rsaquo;</a>
+                        <a class="carousel-control left" href="#featured-articles-carousel" ng-hide="$index==0" data-slide="prev">&lsaquo;</a>
+                        <a class="carousel-control right" href="#featured-articles-carousel" ng-hide="$index==(feeds.length-1)" data-slide="next">&rsaquo;</a>
                     </div>
+
                 </div>
+            </div>
+        </div>
+        <div class="tab-pane fade in" id="featured-pictures">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div id="featured-pictures-carousel" class="carousel slide" data-interval="false">
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
+                            <div ng-repeat="feed in feeds" class="item" ng-class="{active : $index==(feeds.length-1)}">
+                                <h3><a target="_blank" href="{{feed.link}}">{{feed.title}}</a></h3>
+                                <p class="text-left" ng-bind-html-unsafe="feed.content"></p>
+                            </div>
+                        </div>
+                        <a class="carousel-control left" href="#featured-pictures-carousel" ng-hide="$index==0" data-slide="prev">&lsaquo;</a>
+                        <a class="carousel-control right" href="#featured-pictures-carousel" ng-hide="$index==(feeds.length-1)" data-slide="next">&rsaquo;</a>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
 </body>
 </html>
