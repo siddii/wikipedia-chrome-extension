@@ -40,42 +40,7 @@
     </ul>
 
     <div class="tab-content">
-        <div class="tab-pane fade in active" id="featured-articles" ng-init="baseURL='http://en.wikipedia.org/'; feedSrc='http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom'" ng-controller="WikipediaExtensionController">
-            <div class="row-fluid">
-                <div class="span12">
-                    <div id="featured-articles-carousel" class="carousel slide" data-interval="false">
-                        <!-- Carousel items -->
-                        <div class="carousel-inner">
-                            <div ng-repeat="feed in feeds" class="item" ng-class="{active : $index==(feeds.length-1)}">
-                                <h3><a target="_blank" href="{{feed.link}}">{{feed.title}}</a></h3>
-                                <p class="text-left" ng-bind-html-unsafe="feed.content"></p>
-                            </div>
-                        </div>
-                        <a class="carousel-control left" href="#featured-articles-carousel" ng-hide="$index==0" data-slide="prev">&lsaquo;</a>
-                        <a class="carousel-control right" href="#featured-articles-carousel" ng-hide="$index==(feeds.length-1)" data-slide="next">&rsaquo;</a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="tab-pane fade in" id="featured-pictures" ng-init="baseURL='http://en.wikipedia.org/'; feedSrc='http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom'" ng-controller="WikipediaExtensionController">
-            <div class="row-fluid">
-                <div class="span12">
-                    <div id="featured-pictures-carousel" class="carousel slide" data-interval="false">
-                        <!-- Carousel items -->
-                        <div class="carousel-inner">
-                            <div ng-repeat="feed in feeds" class="item" ng-class="{active : $index==(feeds.length-1)}">
-                                <h3><a target="_blank" href="{{feed.link}}">{{feed.title}}</a></h3>
-                                <p class="text-left" ng-bind-html-unsafe="feed.content"></p>
-                            </div>
-                        </div>
-                        <a class="carousel-control left" href="#featured-pictures-carousel" ng-hide="$index==0" data-slide="prev">&lsaquo;</a>
-                        <a class="carousel-control right" href="#featured-pictures-carousel" ng-hide="$index==(feeds.length-1)" data-slide="next">&rsaquo;</a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        <wikipediafeeds id="featured-articles"/>
     </div>
 </div>
 </body>

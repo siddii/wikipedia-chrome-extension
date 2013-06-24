@@ -52,3 +52,17 @@ App.service('GoogleAjaxFeedService', GoogleAjaxFeedService);
 
 App.value('extensionURL', chrome.extension.getURL('/'));
 
+App.directive('wikipediafeeds', function ($timeout, $compile) {
+    return  {
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'templates/feed.html',
+        controller: function ($scope, $element, $attrs, WikipediaFeeds) {
+            $scope.tabId = $attrs.id;
+            console.log('############# $scope.tabId = ', $scope.tabId);
+            $scope.baseURL = 'http://en.wikipedia.org/';
+            $scope.feedSrc = 'http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom';
+            console.log('$scope.baseURL= ', $scope.baseURL, '$scope.feedSrc = ', $scope.feedSrc);
+            $scope.feeds = WikipediaFeeds.loadFeeds($scope.feedSrc, $scope.baseURL);
+        }
+    }});
