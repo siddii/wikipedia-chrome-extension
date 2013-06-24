@@ -55,14 +55,16 @@ App.value('extensionURL', chrome.extension.getURL('/'));
 App.directive('wikipediafeeds', function ($timeout, $compile) {
     return  {
         restrict: 'E',
-        replace: true,
+        replace: false,
         templateUrl: 'templates/feed.html',
         controller: function ($scope, $element, $attrs, WikipediaFeeds) {
+            $element.id = $attrs.id;
             $scope.tabId = $attrs.id;
-            console.log('############# $scope.tabId = ', $scope.tabId);
-            $scope.baseURL = 'http://en.wikipedia.org/';
-            $scope.feedSrc = 'http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom';
-            console.log('$scope.baseURL= ', $scope.baseURL, '$scope.feedSrc = ', $scope.feedSrc);
+            if ($attrs.activeTab) {
+                $scope.activeTab = 'active';
+            }
+            $scope.baseURL = $attrs.baseUrl;
+            $scope.feedSrc = $attrs.feedUrl;
             $scope.feeds = WikipediaFeeds.loadFeeds($scope.feedSrc, $scope.baseURL);
         }
     }});
