@@ -33,16 +33,6 @@ function WikipediaFeeds(GoogleAjaxFeedService, extensionURL) {
 }
 WikipediaFeeds.$inject = ['GoogleAjaxFeedService', 'extensionURL'];
 
-
-function WikipediaExtensionController($scope, WikipediaFeeds) {
-    $scope.baseURL = 'http://en.wikipedia.org/';
-    $scope.feedSrc = 'http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom';
-    console.log('$scope.baseURL= ', $scope.baseURL, '$scope.feedSrc = ', $scope.feedSrc);
-    $scope.feeds = WikipediaFeeds.loadFeeds($scope.feedSrc, $scope.baseURL);
-}
-
-WikipediaExtensionController.$inject = ['$scope', 'WikipediaFeeds'];
-
 var App = angular.module('wikipedia', [], function (){
     console.log('Wikipedia module initialised');
 });
@@ -57,12 +47,9 @@ App.directive('wikipediafeeds', function ($timeout, $compile) {
         restrict: 'E',
         replace: false,
         templateUrl: 'templates/feed.html',
+        scope: true,
         controller: function ($scope, $element, $attrs, WikipediaFeeds) {
-            $element.id = $attrs.id;
-            $scope.tabId = $attrs.id;
-            if ($attrs.activeTab) {
-                $scope.activeTab = 'active';
-            }
+            $scope.tabId = $element.parent().attr('id');
             $scope.baseURL = $attrs.baseUrl;
             $scope.feedSrc = $attrs.feedUrl;
             $scope.feeds = WikipediaFeeds.loadFeeds($scope.feedSrc, $scope.baseURL);
