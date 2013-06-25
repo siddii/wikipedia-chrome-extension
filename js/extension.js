@@ -33,9 +33,7 @@ function WikipediaFeeds(GoogleAjaxFeedService, extensionURL) {
 }
 WikipediaFeeds.$inject = ['GoogleAjaxFeedService', 'extensionURL'];
 
-var App = angular.module('wikipedia', [], function (){
-    console.log('Wikipedia module initialised');
-});
+var App = angular.module('wikipedia', []);
 
 App.service('WikipediaFeeds', WikipediaFeeds);
 App.service('GoogleAjaxFeedService', GoogleAjaxFeedService);
@@ -48,10 +46,17 @@ App.directive('wikipediafeeds', function ($timeout, $compile) {
         replace: false,
         templateUrl: 'templates/feed.html',
         scope: true,
-        controller: function ($scope, $element, $attrs, WikipediaFeeds) {
+        controller: function ($scope, $element, $attrs, WikipediaFeeds, $timeout) {
             $scope.tabId = $element.parent().attr('id');
             $scope.baseURL = $attrs.baseUrl;
             $scope.feedSrc = $attrs.feedUrl;
             $scope.feeds = WikipediaFeeds.loadFeeds($scope.feedSrc, $scope.baseURL);
+//            $element.find('.carousel').bind('slid', function (){
+//                var $container = $('.container');
+//                var $body = $('body');
+//                console.log('###########    Adjusting Size');
+//                $body.height($container.height() + 10);
+//                $body.width($container.width() + 10);
+//            });
         }
     }});
