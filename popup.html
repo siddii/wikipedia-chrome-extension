@@ -40,9 +40,15 @@
     </ul>
 
     <div class="tab-content">
-        <wikipediafeeds id="featured-articles" active-tab="true" base-url="http://en.wikipedia.org/" feed-url="http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=featured&amp;feedformat=atom"/>
-        <wikipediafeeds id="featured-pictures" base-url="http://en.wikipedia.org/" feed-url="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom"/>
-        <wikipediafeeds id="qotd" active-tab="true" base-url="http://en.wikipedia.org/" feed-url="http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=onthisday&amp;feedformat=atom"/>
+        <div id="featured-articles" class="tab-pane fade in active">
+            <wikipediafeeds active-tab="true" base-url="http://en.wikipedia.org/" feed-url="http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=featured&amp;feedformat=atom"/>
+        </div>
+        <div id="featured-pictures" class="tab-pane fade in">
+            <wikipediafeeds base-url="http://en.wikipedia.org/" feed-url="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom"/>
+        </div>
+        <div id="qotd" class="tab-pane fade in">
+            <wikipediafeeds active-tab="true" base-url="http://en.wikipedia.org/" feed-url="http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=onthisday&amp;feedformat=atom"/>
+        </div>
     </div>
 </div>
 </body>
