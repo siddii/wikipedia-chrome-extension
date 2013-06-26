@@ -30,12 +30,40 @@ function WikipediaFeeds(GoogleAjaxFeedService, extensionURL) {
     }
 
     this.loadFeeds = function (feedURL, baseURL) {
+        console.log("############# Loading Feeds = ", feedURL, baseURL);
         return GoogleAjaxFeedService.getFeed(feedURL).then(function(res){
             return parseFeeds(res, baseURL);
         });
     };
 }
 WikipediaFeeds.$inject = ['GoogleAjaxFeedService', 'extensionURL'];
+
+function WikipediaAppController($scope, $http) {
+//    $http.get('settings.json').success(function (settings){
+//        $scope.lang = settings.defaultLang
+//        console.log('########### WikipediaAppController $scope.lang = ', $scope.lang);
+//        $scope.settings = settings[$scope.lang];
+//        console.log('########### WikipediaAppController $scope.settings = ', $scope.settings);
+//    });
+    $scope.lang = 'en';
+    $scope.settings = {
+        "language": "English",
+        "baseURL": "http://en.wikipedia.org/",
+        "featuredArticlesFeed": {
+            "title": "Featured Articles",
+            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=featured&amp;feedformat=atom"
+        },
+        "featuredPicturesFeed": {
+            "title": "Featured Pictures",
+            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=potd&amp;feedformat=atom"
+        },
+        "qotdFeed": {
+            "title": "Quote Of the Day",
+            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=onthisday&amp;feedformat=atom"
+        }
+    };
+}
+WikipediaAppController.$inject = ['$scope', '$http'];
 
 var App = angular.module('wikipedia', []);
 
@@ -50,11 +78,14 @@ App.directive('wikipediafeeds', function ($timeout, $compile) {
         restrict: 'E',
         replace: false,
         templateUrl: 'templates/feed.html',
-        scope: true,
-        controller: function ($scope, $element, $attrs, WikipediaFeeds, $timeout, $window) {
+        scope: {baseURL:'=baseUrl', feedURL:'=feedUrl'},
+        controller: ['$scope', '$element', 'WikipediaFeeds', function($scope, $element, WikipediaFeeds) {
+            console.log("Controller Instantiation", $scope.feedURL);
             $scope.tabId = $element.parent().attr('id');
-            $scope.baseURL = $attrs.baseUrl;
-            $scope.feedSrc = $attrs.feedUrl;
-            $scope.feeds = WikipediaFeeds.loadFeeds($scope.feedSrc, $scope.baseURL);
+            console.log('######### $scope= ', $scope.feedURL);
+            $scope.feeds = WikipediaFeeds.loadFeeds($scope.feedURL, $scope.baseURL);
+        }],
+        link: function($scope, $element, $attrs) {
+            console.log("###### Link ", $scope.feedURL)
         }
     }});

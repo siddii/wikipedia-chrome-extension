@@ -1,6 +1,7 @@
 <div class="row-fluid">
     <div class="span12">
         <div id="{{tabId}}-carousel" class="carousel slide" data-interval="false">
+            <span>Feed URL - {{feedURL}}</span>
             <!-- Carousel items -->
             <div class="carousel-inner">
                 <div ng-repeat="feed in feeds" class="item" ng-class="{active : $index==(feeds.length-1)}">

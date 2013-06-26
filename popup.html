@@ -18,7 +18,7 @@
     <script src="js/extension.js"></script>
 </head>
 
-<body>
+<body ng-controller="WikipediaAppController">
 
 <div class="container">
     <div class="row-fluid">
@@ -33,20 +33,20 @@
     </div>
 
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#featured-articles" data-toggle="tab">Featured Articles</a></li>
-        <li><a href="#featured-pictures" data-toggle="tab">Featured Pictures</a></li>
-        <li><a href="#qotd" data-toggle="tab">Quote of the day</a></li>
+        <li class="active"><a href="#featured-articles" data-toggle="tab">{{settings['featuredArticlesFeed'].title}}</a></li>
+        <li><a href="#featured-pictures" data-toggle="tab">{{settings['featuredPicturesFeed'].title}}</a></li>
+        <li><a href="#qotd" data-toggle="tab">{{settings['qotdFeed'].title}}</a></li>
     </ul>
 
     <div class="tab-content">
         <div id="featured-articles" class="tab-pane fade in active">
-            <wikipediafeeds base-url="http://en.wikipedia.org/" feed-url="http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=featured&amp;feedformat=atom"/>
+            <wikipediafeeds base-url="settings.baseURL" feed-url="settings.featuredArticlesFeed.url"/>
         </div>
         <div id="featured-pictures" class="tab-pane fade in">
-            <wikipediafeeds base-url="http://en.wikipedia.org/" feed-url="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom"/>
+            <wikipediafeeds base-url="settings.baseURL" feed-url="settings.featuredPicturesFeed.url"/>
         </div>
         <div id="qotd" class="tab-pane fade in">
-            <wikipediafeeds base-url="http://en.wikipedia.org/" feed-url="http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=onthisday&amp;feedformat=atom"/>
+            <wikipediafeeds base-url="settings.baseURL" feed-url="settings.qotdFeed.url"/>
         </div>
     </div>
 </div>
