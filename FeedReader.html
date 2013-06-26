@@ -29,7 +29,7 @@
 
         App.controller("FeedCtrl", ['$scope','FeedService', 'settings', function ($scope,Feed, settings) {
             $scope.loadFeed=function(){
-                Feed.parseFeed($scope.feedSrc).then(function(res){
+                Feed.getFeed($scope.feedSrc).then(function(res){
                     $scope.feeds=res.data.responseData.feed.entries;
                     for(var i=0; i < $scope.feeds.length; i++) {
                         var feedElement = angular.element($scope.feeds[i].content);
@@ -51,7 +51,7 @@
 
         App.factory('FeedService',['$http',function($http){
             return {
-                parseFeed : function(url){
+                getFeed : function(url){
                     return $http.jsonp('http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
                 }
             }
