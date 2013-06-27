@@ -45,9 +45,7 @@ function WikipediaAppController($scope, WikipediaFeeds, $http) {
         $scope.settings = settings[$scope.lang];
     });
     $scope.loadFeedData = function (tab){
-        $scope.feedUrl = $scope.settings[tab].feedUrl;
-        $scope.baseUrl = $scope.settings.baseUrl;
-        $scope.Feeds[tab] = WikipediaFeeds.loadFeeds($scope.feedUrl, $scope.baseUrl);
+        $scope.Feeds[tab] = WikipediaFeeds.loadFeeds($scope.settings[tab].feedUrl, $scope.settings.baseUrl);
     }
 }
 WikipediaAppController.$inject = ['$scope', 'WikipediaFeeds', '$http'];
