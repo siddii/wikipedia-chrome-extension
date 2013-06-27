@@ -46,8 +46,21 @@ function WikipediaAppController($scope, WikipediaFeeds, $http) {
     $scope.loadFeedData = function (tab){
         $scope.Feeds[tab] = WikipediaFeeds.loadFeeds($scope.settings[tab].feedUrl, $scope.settings.baseUrl);
     }
+
+
 }
 WikipediaAppController.$inject = ['$scope', 'WikipediaFeeds', '$http'];
+
+function LocalStorageService () {
+    var cacheTime = 1000 * 60 * 15; //15 min
+    this.setCache = function (key, value) {
+        localStorage[key] = JSON.toString({date:new Date(), value:value});
+    };
+
+    this.getCache = function(key) {
+
+    }
+}
 
 var App = angular.module('wikipedia', []);
 
