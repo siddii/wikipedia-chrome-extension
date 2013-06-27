@@ -33,21 +33,29 @@
     </div>
 
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#featured-articles" data-toggle="tab">{{settings['featuredArticlesFeed'].title}}</a></li>
-        <li><a href="#featured-pictures" data-toggle="tab">{{settings['featuredPicturesFeed'].title}}</a></li>
-        <li><a href="#qotd" data-toggle="tab">{{settings['qotdFeed'].title}}</a></li>
+        <li class="active"><a href="#featuredArticles" data-toggle="tab">{{settings['featuredArticles'].title}}</a></li>
+        <li><a href="#featuredPictures" data-toggle="tab">{{settings['featuredPictures'].title}}</a></li>
+        <li><a href="#qotd" data-toggle="tab">{{settings['qotd'].title}}</a></li>
     </ul>
 
     <div class="tab-content">
-        <div id="featured-articles" class="tab-pane fade in active">
-            <wikipediafeeds base-url="settings.baseURL" feed-url="settings.featuredArticlesFeed.url"/>
+        <div id="{{tab}}" ng-repeat="tab in ['featuredArticles', 'featuredPictures', 'qotd']" class="tab-pane fade in" ng-class="{active : $index==0}">
+            <ng-include src="'templates/feed.html'" onload="loadFeedData(tab);"></ng-include>
         </div>
-        <div id="featured-pictures" class="tab-pane fade in">
-            <wikipediafeeds base-url="settings.baseURL" feed-url="settings.featuredPicturesFeed.url"/>
-        </div>
-        <div id="qotd" class="tab-pane fade in">
-            <wikipediafeeds base-url="settings.baseURL" feed-url="settings.qotdFeed.url"/>
-        </div>
+
+
+        <!--<div id="featuredArticles" class="tab-pane fade in active">-->
+            <!--&lt;!&ndash;<wikipediafeeds base-url="settings.baseURL" feed-url="settings.featuredArticlesFeed.url"/>&ndash;&gt;-->
+            <!--<ng-include src="'templates/feed.html'" onload="Feeds.tabId='featuredArticles'; loadFeedData();"></ng-include>-->
+        <!--</div>-->
+        <!--<div id="featuredPictures" class="tab-pane fade in">-->
+            <!--&lt;!&ndash;<wikipediafeeds base-url="settings.baseURL" feed-url="settings.featuredPicturesFeed.url"/>&ndash;&gt;-->
+            <!--<ng-include src="'templates/feed.html'" onload="Feeds.tabId='featuredPictures'; loadFeedData();"></ng-include>-->
+        <!--</div>-->
+        <!--<div id="qotd" class="tab-pane fade in">-->
+            <!--&lt;!&ndash;<wikipediafeeds base-url="settings.baseURL" feed-url="settings.qotdFeed.url"/>&ndash;&gt;-->
+            <!--<ng-include src="'templates/feed.html'" onload="Feeds.tabId='qotd'; loadFeedData();"></ng-include>-->
+        <!--</div>-->
     </div>
 </div>
 </body>

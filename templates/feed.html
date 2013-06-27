@@ -1,16 +1,15 @@
 <div class="row-fluid">
     <div class="span12">
-        <div id="{{tabId}}-carousel" class="carousel slide" data-interval="false">
-            <span>Feed URL - {{feedURL}}</span>
+        <div id="{{tab}}-carousel" class="carousel slide" data-interval="false">
             <!-- Carousel items -->
             <div class="carousel-inner">
-                <div ng-repeat="feed in feeds" class="item" ng-class="{active : $index==(feeds.length-1)}">
+                <div ng-repeat="feed in Feeds[tab]" class="item" ng-class="{active : $index==(Feeds[tab].length-1)}">
                     <h3><a target="_blank" href="{{feed.link}}">{{feed.title}}</a></h3>
                     <p class="text-left" ng-bind-html-unsafe="feed.content"></p>
                 </div>
             </div>
-            <a class="carousel-control left" href="#{{tabId}}-carousel" ng-hide="$index==0" data-slide="prev">&lsaquo;</a>
-            <a class="carousel-control right" href="#{{tabId}}-carousel" ng-hide="$index==(feeds.length-1)" data-slide="next">&rsaquo;</a>
+            <a class="carousel-control left" href="#{{tab}}-carousel" ng-hide="$index==0" data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" href="##{{tab}}-carousel" ng-hide="$index==(feeds.length-1)" data-slide="next">&rsaquo;</a>
         </div>
     </div>
 </div>

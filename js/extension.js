@@ -38,7 +38,7 @@ function WikipediaFeeds(GoogleAjaxFeedService, extensionURL) {
 }
 WikipediaFeeds.$inject = ['GoogleAjaxFeedService', 'extensionURL'];
 
-function WikipediaAppController($scope, $http) {
+function WikipediaAppController($scope, WikipediaFeeds) {
 //    $http.get('settings.json').success(function (settings){
 //        $scope.lang = settings.defaultLang
 //        console.log('########### WikipediaAppController $scope.lang = ', $scope.lang);
@@ -46,24 +46,33 @@ function WikipediaAppController($scope, $http) {
 //        console.log('########### WikipediaAppController $scope.settings = ', $scope.settings);
 //    });
     $scope.lang = 'en';
+    $scope.Feeds = {};
     $scope.settings = {
         "language": "English",
-        "baseURL": "http://en.wikipedia.org/",
-        "featuredArticlesFeed": {
+        "baseUrl": "http://en.wikipedia.org/",
+        "featuredArticles": {
             "title": "Featured Articles",
-            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=featured&amp;feedformat=atom"
+            "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
         },
-        "featuredPicturesFeed": {
+        "featuredPictures": {
             "title": "Featured Pictures",
-            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=potd&amp;feedformat=atom"
+            "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom"
         },
-        "qotdFeed": {
+        "qotd": {
             "title": "Quote Of the Day",
-            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=onthisday&amp;feedformat=atom"
+            "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=onthisday&feedformat=atom"
         }
     };
+
+    $scope.loadFeedData = function (tab){
+        console.log('############ tab = ', tab);
+        $scope.feedUrl = $scope.settings[tab].feedUrl;
+        $scope.baseUrl = $scope.settings.baseUrl;
+        console.log('######## FeedURL = ', $scope.feedUrl, ' $scope.baseUrl - ', $scope.baseUrl);
+        $scope.Feeds[tab] = WikipediaFeeds.loadFeeds($scope.feedUrl, $scope.baseUrl);
+    }
 }
-WikipediaAppController.$inject = ['$scope', '$http'];
+WikipediaAppController.$inject = ['$scope', 'WikipediaFeeds'];
 
 var App = angular.module('wikipedia', []);
 

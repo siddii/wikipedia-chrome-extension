@@ -5,15 +5,15 @@
         "baseURL": "http://en.wikipedia.org/",
         "featuredArticlesFeed": {
             "title": "Featured Articles",
-            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=featured&amp;feedformat=atom"
+            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
         },
         "featuredPicturesFeed": {
             "title": "Featured Pictures",
-            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=potd&amp;feedformat=atom"
+            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom"
         },
         "qotdFeed": {
             "title": "Quote Of the Day",
-            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=onthisday&amp;feedformat=atom"
+            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=onthisday&feedformat=atom"
         }
     }
 }
