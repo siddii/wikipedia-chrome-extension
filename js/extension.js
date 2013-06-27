@@ -6,7 +6,7 @@ function GoogleAjaxFeedService($http) {
 }
 GoogleAjaxFeedService.$inject = ['$http'];
 
-function WikipediaFeeds(GoogleAjaxFeedService, extensionURL) {
+function WikipediaFeeds(GoogleAjaxFeedService, extensionURL, LocalStorageService) {
     function parseFeeds(res, baseURL) {
         var feedEntries = res.data.responseData.feed.entries;
         if (feedEntries.length > 0) {
@@ -30,35 +30,48 @@ function WikipediaFeeds(GoogleAjaxFeedService, extensionURL) {
     }
 
     this.loadFeeds = function (feedURL, baseURL) {
+        var feedData = LocalStorageService.getCache(feedURL);
+        if (feedData !== null) {
+            return feedData;
+        }
         return GoogleAjaxFeedService.getFeed(feedURL).then(function(res){
-            return parseFeeds(res, baseURL);
+            var feedData = parseFeeds(res, baseURL);
+            LocalStorageService.setCache(feedURL, feedData);
+            return feedData;
         });
     };
 }
-WikipediaFeeds.$inject = ['GoogleAjaxFeedService', 'extensionURL'];
+WikipediaFeeds.$inject = ['GoogleAjaxFeedService', 'extensionURL', 'LocalStorageService'];
 
-function WikipediaAppController($scope, WikipediaFeeds, $http) {
+function WikipediaAppController($scope, $http, WikipediaFeeds) {
     $scope.Feeds = {};
     $http.get('settings.json').success(function (settings){
-        $scope.lang = settings.defaultLang
+        $scope.lang = settings.defaultLang;
         $scope.settings = settings[$scope.lang];
+        $scope.loadFeedData('featuredArticles');
     });
     $scope.loadFeedData = function (tab){
         $scope.Feeds[tab] = WikipediaFeeds.loadFeeds($scope.settings[tab].feedUrl, $scope.settings.baseUrl);
-    }
-
-
+    };
 }
-WikipediaAppController.$inject = ['$scope', 'WikipediaFeeds', '$http'];
+
+WikipediaAppController.$inject = ['$scope', '$http', 'WikipediaFeeds'];
 
 function LocalStorageService () {
-    var cacheTime = 1000 * 60 * 15; //15 min
+    var cacheTime = 1000 * 60 * 30; //15 min
+
     this.setCache = function (key, value) {
-        localStorage[key] = JSON.toString({date:new Date(), value:value});
+        localStorage[key] = JSON.stringify({date:new Date().getTime(), value:value});
     };
 
     this.getCache = function(key) {
-
+        if (key in localStorage) {
+            var object = JSON.parse(localStorage[key]);
+            if ((new Date().getTime() - object.date) < cacheTime) {
+                return object.value;
+            }
+        }
+        return null;
     }
 }
 
@@ -66,5 +79,6 @@ var App = angular.module('wikipedia', []);
 
 App.service('WikipediaFeeds', WikipediaFeeds);
 App.service('GoogleAjaxFeedService', GoogleAjaxFeedService);
+App.service('LocalStorageService', LocalStorageService);
 
 App.value('extensionURL', chrome.extension.getURL('/'));
