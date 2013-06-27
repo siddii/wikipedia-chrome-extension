@@ -30,7 +30,6 @@ function WikipediaFeeds(GoogleAjaxFeedService, extensionURL) {
     }
 
     this.loadFeeds = function (feedURL, baseURL) {
-        console.log("############# Loading Feeds = ", feedURL, baseURL);
         return GoogleAjaxFeedService.getFeed(feedURL).then(function(res){
             return parseFeeds(res, baseURL);
         });
@@ -56,21 +55,3 @@ App.service('WikipediaFeeds', WikipediaFeeds);
 App.service('GoogleAjaxFeedService', GoogleAjaxFeedService);
 
 App.value('extensionURL', chrome.extension.getURL('/'));
-
-
-App.directive('wikipediafeeds', function ($timeout, $compile) {
-    return  {
-        restrict: 'E',
-        replace: false,
-        templateUrl: 'templates/feed.html',
-        scope: {baseURL:'=baseUrl', feedURL:'=feedUrl'},
-        controller: ['$scope', '$element', 'WikipediaFeeds', function($scope, $element, WikipediaFeeds) {
-            console.log("Controller Instantiation", $scope.feedURL);
-            $scope.tabId = $element.parent().attr('id');
-            console.log('######### $scope= ', $scope.feedURL);
-            $scope.feeds = WikipediaFeeds.loadFeeds($scope.feedURL, $scope.baseURL);
-        }],
-        link: function($scope, $element, $attrs) {
-            console.log("###### Link ", $scope.feedURL)
-        }
-    }});
