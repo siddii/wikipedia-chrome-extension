@@ -42,20 +42,6 @@
         <div id="{{tab}}" ng-repeat="tab in ['featuredArticles', 'featuredPictures', 'qotd']" class="tab-pane fade in" ng-class="{active : $index==0}">
             <ng-include src="'templates/feed.html'" onload="loadFeedData(tab);"></ng-include>
         </div>
-
-
-        <!--<div id="featuredArticles" class="tab-pane fade in active">-->
-            <!--&lt;!&ndash;<wikipediafeeds base-url="settings.baseURL" feed-url="settings.featuredArticlesFeed.url"/>&ndash;&gt;-->
-            <!--<ng-include src="'templates/feed.html'" onload="Feeds.tabId='featuredArticles'; loadFeedData();"></ng-include>-->
-        <!--</div>-->
-        <!--<div id="featuredPictures" class="tab-pane fade in">-->
-            <!--&lt;!&ndash;<wikipediafeeds base-url="settings.baseURL" feed-url="settings.featuredPicturesFeed.url"/>&ndash;&gt;-->
-            <!--<ng-include src="'templates/feed.html'" onload="Feeds.tabId='featuredPictures'; loadFeedData();"></ng-include>-->
-        <!--</div>-->
-        <!--<div id="qotd" class="tab-pane fade in">-->
-            <!--&lt;!&ndash;<wikipediafeeds base-url="settings.baseURL" feed-url="settings.qotdFeed.url"/>&ndash;&gt;-->
-            <!--<ng-include src="'templates/feed.html'" onload="Feeds.tabId='qotd'; loadFeedData();"></ng-include>-->
-        <!--</div>-->
     </div>
 </div>
 </body>

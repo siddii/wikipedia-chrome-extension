@@ -38,41 +38,19 @@ function WikipediaFeeds(GoogleAjaxFeedService, extensionURL) {
 }
 WikipediaFeeds.$inject = ['GoogleAjaxFeedService', 'extensionURL'];
 
-function WikipediaAppController($scope, WikipediaFeeds) {
-//    $http.get('settings.json').success(function (settings){
-//        $scope.lang = settings.defaultLang
-//        console.log('########### WikipediaAppController $scope.lang = ', $scope.lang);
-//        $scope.settings = settings[$scope.lang];
-//        console.log('########### WikipediaAppController $scope.settings = ', $scope.settings);
-//    });
-    $scope.lang = 'en';
+function WikipediaAppController($scope, WikipediaFeeds, $http) {
     $scope.Feeds = {};
-    $scope.settings = {
-        "language": "English",
-        "baseUrl": "http://en.wikipedia.org/",
-        "featuredArticles": {
-            "title": "Featured Articles",
-            "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
-        },
-        "featuredPictures": {
-            "title": "Featured Pictures",
-            "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom"
-        },
-        "qotd": {
-            "title": "Quote Of the Day",
-            "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=onthisday&feedformat=atom"
-        }
-    };
-
+    $http.get('settings.json').success(function (settings){
+        $scope.lang = settings.defaultLang
+        $scope.settings = settings[$scope.lang];
+    });
     $scope.loadFeedData = function (tab){
-        console.log('############ tab = ', tab);
         $scope.feedUrl = $scope.settings[tab].feedUrl;
         $scope.baseUrl = $scope.settings.baseUrl;
-        console.log('######## FeedURL = ', $scope.feedUrl, ' $scope.baseUrl - ', $scope.baseUrl);
         $scope.Feeds[tab] = WikipediaFeeds.loadFeeds($scope.feedUrl, $scope.baseUrl);
     }
 }
-WikipediaAppController.$inject = ['$scope', 'WikipediaFeeds'];
+WikipediaAppController.$inject = ['$scope', 'WikipediaFeeds', '$http'];
 
 var App = angular.module('wikipedia', []);
 

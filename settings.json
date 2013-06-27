@@ -2,18 +2,18 @@
     "defaultLang": "en",
     "en": {
         "language": "English",
-        "baseURL": "http://en.wikipedia.org/",
-        "featuredArticlesFeed": {
+        "baseUrl": "http://en.wikipedia.org/",
+        "featuredArticles": {
             "title": "Featured Articles",
-            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
+            "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
         },
-        "featuredPicturesFeed": {
+        "featuredPictures": {
             "title": "Featured Pictures",
-            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom"
+            "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom"
         },
-        "qotdFeed": {
+        "qotd": {
             "title": "Quote Of the Day",
-            "url": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=onthisday&feedformat=atom"
+            "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=onthisday&feedformat=atom"
         }
     }
 }
