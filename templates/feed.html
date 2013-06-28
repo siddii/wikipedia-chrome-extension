@@ -3,13 +3,13 @@
         <div ng-show="Feeds[tab].length > 0" id="{{tab}}-carousel" class="carousel slide" data-interval="false">
             <!-- Carousel items -->
             <div class="carousel-inner">
-                <div ng-repeat="feed in Feeds[tab]" class="item" ng-class="{active : $index==(Feeds[tab].length-1)}">
+                <div ng-init="Feeds[tab].feedIndex=$index;" ng-repeat="feed in Feeds[tab]" class="item" ng-class="{active : $index==(Feeds[tab].length-1)}">
                     <h3 class="feed-title"><a target="_blank" href="{{feed.link}}">{{feed.title}}</a></h3>
                     <p class="text-left" ng-bind-html-unsafe="feed.content"></p>
                 </div>
             </div>
-            <a class="carousel-control left" href="#{{tab}}-carousel" data-slide="prev">&lsaquo;</a>
-            <a class="carousel-control right" href="#{{tab}}-carousel" data-slide="next">&rsaquo;</a>
+            <a class="carousel-control left" ng-hide="Feeds[tab].feedIndex == 0;" ng-click="Feeds[tab].feedIndex = Feeds[tab].feedIndex-1;" href="#{{tab}}-carousel" data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" ng-hide="Feeds[tab].feedIndex == Feeds[tab].length-1;"  ng-click="Feeds[tab].feedIndex = Feeds[tab].feedIndex+1;" href="#{{tab}}-carousel" data-slide="next">&rsaquo;</a>
         </div>
         <h3 ng-hide="Feeds[tab].length > 0">
             Loading...

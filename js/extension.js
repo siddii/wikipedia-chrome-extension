@@ -47,6 +47,7 @@ WikipediaFeeds.$inject = ['GoogleAjaxFeedService', 'extensionURL', 'LocalStorage
 
 function WikipediaAppController($scope, $http, WikipediaFeeds) {
     $scope.Feeds = {};
+    $scope.FeedIndex = {};
     $http.get('settings.json').success(function (settings){
         $scope.lang = settings.defaultLang;
         $scope.settings = settings[$scope.lang];
@@ -55,6 +56,10 @@ function WikipediaAppController($scope, $http, WikipediaFeeds) {
     $scope.loadFeedData = function (tab){
         $scope.Feeds[tab] = WikipediaFeeds.loadFeeds($scope.settings[tab].feedUrl, $scope.settings.baseUrl);
     };
+
+    $scope.showFeedIndex = function (feedIndex){
+        console.log('FeedIndex = ' + feedIndex);
+    }
 }
 
 WikipediaAppController.$inject = ['$scope', '$http', 'WikipediaFeeds'];
