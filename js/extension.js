@@ -81,6 +81,17 @@ function LocalStorageService () {
 
 var App = angular.module('Wikipedia', []);
 
+App.config(function (){
+    $('#search').typeahead({
+        source: function (query, process) {
+            return $.get('http://en.wikipedia.org/w/api.php?action=opensearch&format=json&search='+query+'&namespace=0&suggest=', function (data) {
+                return process(data[1]);
+            });
+        }
+    });
+
+});
+
 App.service('WikipediaFeeds', WikipediaFeeds);
 App.service('GoogleAjaxFeedService', GoogleAjaxFeedService);
 App.service('LocalStorageService', LocalStorageService);
