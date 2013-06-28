@@ -57,10 +57,6 @@ function WikipediaAppController($scope, $http, WikipediaFeeds) {
             $scope.Feeds[tab] = WikipediaFeeds.loadFeeds($scope.settings[tab].feedUrl, $scope.settings.baseUrl);
         }
     };
-
-    $scope.showFeedIndex = function (feedIndex){
-        console.log('FeedIndex = ' + feedIndex);
-    }
 }
 
 WikipediaAppController.$inject = ['$scope', '$http', 'WikipediaFeeds'];
