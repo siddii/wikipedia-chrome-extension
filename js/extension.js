@@ -32,13 +32,11 @@ function WikipediaFeeds(GoogleAjaxFeedService, extensionURL, LocalStorageService
     this.loadFeeds = function (feedURL, baseURL) {
         var feedData = LocalStorageService.getCache(feedURL);
         if (feedData !== null) {
-            loadingModel = false;
             return feedData;
         }
         return GoogleAjaxFeedService.getFeed(feedURL).then(function(res){
             var feedData = parseFeeds(res, baseURL);
             LocalStorageService.setCache(feedURL, feedData);
-            loadingModel = false;
             return feedData;
         });
     };
@@ -54,7 +52,9 @@ function WikipediaAppController($scope, $http, WikipediaFeeds) {
         $scope.loadFeedData('featuredArticles');
     });
     $scope.loadFeedData = function (tab){
-        $scope.Feeds[tab] = WikipediaFeeds.loadFeeds($scope.settings[tab].feedUrl, $scope.settings.baseUrl);
+        if (!$scope.Feeds[tab]) {
+            $scope.Feeds[tab] = WikipediaFeeds.loadFeeds($scope.settings[tab].feedUrl, $scope.settings.baseUrl);
+        }
     };
 
     $scope.showFeedIndex = function (feedIndex){
