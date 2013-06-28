@@ -66,7 +66,7 @@ function WikipediaAppController($scope, $http, WikipediaFeeds) {
 WikipediaAppController.$inject = ['$scope', '$http', 'WikipediaFeeds'];
 
 function LocalStorageService () {
-    var cacheTime = 1000 * 60 * 30; //15 min
+    var cacheTime = 1000 * 60 * 30; //30 min
 
     this.setCache = function (key, value) {
         localStorage[key] = JSON.stringify({date:new Date().getTime(), value:value});
