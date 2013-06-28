@@ -1,3 +1,4 @@
+'use strict';
 
 function GoogleAjaxFeedService($http) {
     this.getFeed = function(url){
