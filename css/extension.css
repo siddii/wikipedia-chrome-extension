@@ -4,6 +4,10 @@ html {
     overflow: auto;
 }
 
+.feed-title {
+    text-decoration: underline;
+}
+
 .label-search {
     font-weight: bold;
     font-size: 150%;

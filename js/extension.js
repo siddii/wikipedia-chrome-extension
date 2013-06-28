@@ -32,11 +32,13 @@ function WikipediaFeeds(GoogleAjaxFeedService, extensionURL, LocalStorageService
     this.loadFeeds = function (feedURL, baseURL) {
         var feedData = LocalStorageService.getCache(feedURL);
         if (feedData !== null) {
+            loadingModel = false;
             return feedData;
         }
         return GoogleAjaxFeedService.getFeed(feedURL).then(function(res){
             var feedData = parseFeeds(res, baseURL);
             LocalStorageService.setCache(feedURL, feedData);
+            loadingModel = false;
             return feedData;
         });
     };
