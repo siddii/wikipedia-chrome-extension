@@ -82,7 +82,7 @@ function LocalStorageService () {
     }
 }
 
-var App = angular.module('wikipedia', []);
+var App = angular.module('Wikipedia', []);
 
 App.service('WikipediaFeeds', WikipediaFeeds);
 App.service('GoogleAjaxFeedService', GoogleAjaxFeedService);
