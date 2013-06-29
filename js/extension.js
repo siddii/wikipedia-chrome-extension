@@ -89,7 +89,6 @@ App.config(function (){
             });
         }
     });
-
 });
 
 App.service('WikipediaFeeds', WikipediaFeeds);
