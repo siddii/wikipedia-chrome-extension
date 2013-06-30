@@ -6,6 +6,9 @@ Google chrome extension for serious Wikipedia fans!
 # Installation
 Please go to this page for installing this extension - https://chrome.google.com/webstore/detail/wikipedia/imilikhegdfjlcbgakjieeecgdnomiel
 
+## Demo
+Demo page - http://www.youtube.com/watch?v=gTRMXLUEPSc&feature=em-upload_owner
+
 ## Screenshots
 
 ![Screenshot1](screenshots/Screenshot1.png "Screenshot 1")
