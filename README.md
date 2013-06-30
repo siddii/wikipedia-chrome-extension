@@ -10,4 +10,5 @@ Please go to this page for installing this extension - https://chrome.google.com
 
 ![Screenshot1](screenshots/Screenshot1.png "Screenshot 1")
 
+
 ![Screenshot4](screenshots/Screenshot4.png "Screenshot 4")
