@@ -19,7 +19,7 @@ Demo page - http://www.youtube.com/watch?v=gTRMXLUEPSc&feature=em-upload_owner
 
 ## Contribute
 
-If you like to improve this extension Please submit <a
+If you like to improve this extension, please submit <a
             href="https://github.com/siddii/wikipedia-chrome-extension/pulls" target="_new">pull requests</a> or create <a
             href="https://github.com/siddii/wikipedia-chrome-extension/issues" target="_new">issues</a> to contribute to this
         project :)
