@@ -1,0 +1,24 @@
+{
+    "defaultLang": "en",
+    "en": {
+        "language": "English",
+        "baseUrl": "http://en.wikipedia.org/",
+        "tabs": [
+            {
+                "id": "featuredArticles",
+                "title": "Featured Articles",
+                "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
+            },
+            {
+                "id": "featuredPictures",
+                "title": "Featured Pictures",
+                "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom"
+            },
+            {
+                "id": "qotd",
+                "title": "Quote Of the Day",
+                "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=onthisday&feedformat=atom"
+            }
+        ]
+    }
+}

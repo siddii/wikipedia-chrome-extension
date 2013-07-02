@@ -47,14 +47,15 @@ WikipediaFeeds.$inject = ['GoogleAjaxFeedService', 'extensionURL', 'LocalStorage
 function WikipediaAppController($scope, $http, WikipediaFeeds) {
     $scope.Feeds = {};
     $scope.FeedIndex = {};
-    $http.get('settings.json').success(function (settings){
-        $scope.lang = settings.defaultLang;
-        $scope.settings = settings[$scope.lang];
-        $scope.loadFeedData('featuredArticles');
+    $http.get('app.json').success(function (app){
+        $scope.lang = app.defaultLang;
+        $scope.tabs = app[$scope.lang].tabs;
+        $scope.tabs.baseUrl = app[$scope.lang].baseUrl;
+        $scope.loadFeedData($scope.tabs[0]);
     });
     $scope.loadFeedData = function (tab){
-        if (!$scope.Feeds[tab]) {
-            $scope.Feeds[tab] = WikipediaFeeds.loadFeeds($scope.settings[tab].feedUrl, $scope.settings.baseUrl);
+        if (!$scope.Feeds[tab.id]) {
+            $scope.Feeds[tab.id] = WikipediaFeeds.loadFeeds(tab.feedUrl, $scope.tabs.baseUrl);
         }
     };
 }
@@ -76,7 +77,7 @@ function LocalStorageService () {
             }
         }
         return null;
-    }
+    };
 }
 
 var App = angular.module('Wikipedia', []);
