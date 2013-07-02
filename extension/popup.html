@@ -31,11 +31,11 @@
     </div>
 
     <ul class="nav nav-tabs">
-        <li ng-repeat="tab in tabs" ng-click="loadFeedData(tab);" ng-class="{active : $index==0}"><a href="#{{tab.id}}" data-toggle="tab">{{tab.title}}</a></li>
+        <li ng-repeat="tab in tabs" ng-click="loadTab(tab);" ng-class="{active : tab.id==selectedTab}"><a href="#{{tab.id}}" data-toggle="tab">{{tab.title}}</a></li>
     </ul>
 
     <div class="tab-content">
-        <div id="{{tab.id}}" ng-repeat="tab in tabs" class="tab-pane fade in" ng-class="{active : $index==0}">
+        <div id="{{tab.id}}" ng-repeat="tab in tabs" class="tab-pane fade in" ng-class="{active : tab.id==selectedTab}">
             <ng-include src="'templates/feed.html'"></ng-include>
         </div>
     </div>

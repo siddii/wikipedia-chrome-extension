@@ -44,23 +44,34 @@ function WikipediaFeeds(GoogleAjaxFeedService, extensionURL, LocalStorageService
 }
 WikipediaFeeds.$inject = ['GoogleAjaxFeedService', 'extensionURL', 'LocalStorageService'];
 
-function WikipediaAppController($scope, $http, WikipediaFeeds) {
+var selectedTabPrefKey = 'selectedTab';
+
+function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageService) {
     $scope.Feeds = {};
     $scope.FeedIndex = {};
+
+    $scope.$watch(selectedTabPrefKey, function (newValue){
+        LocalStorageService.setValue(selectedTabPrefKey, newValue);
+    });
+
+
     $http.get('app.json').success(function (app){
         $scope.lang = app.defaultLang;
         $scope.tabs = app[$scope.lang].tabs;
         $scope.tabs.baseUrl = app[$scope.lang].baseUrl;
-        $scope.loadFeedData($scope.tabs[0]);
+        $scope.selectedTab = LocalStorageService.getValue(selectedTabPrefKey, $scope.tabs[0].id);
+        var tab = $scope.tabs.filter(function (tab){return tab.id === $scope.selectedTab;})[0];
+        $scope.loadTab(tab);
     });
-    $scope.loadFeedData = function (tab){
+    $scope.loadTab = function (tab){
+        $scope.selectedTab = tab.id;
         if (!$scope.Feeds[tab.id]) {
             $scope.Feeds[tab.id] = WikipediaFeeds.loadFeeds(tab.feedUrl, $scope.tabs.baseUrl);
         }
     };
 }
 
-WikipediaAppController.$inject = ['$scope', '$http', 'WikipediaFeeds'];
+WikipediaAppController.$inject = ['$scope', '$http', 'WikipediaFeeds', 'LocalStorageService'];
 
 function LocalStorageService () {
     var cacheTime = 1000 * 60 * 30; //30 min
@@ -78,6 +89,16 @@ function LocalStorageService () {
         }
         return null;
     };
+
+    this.setValue = function (key, value) {
+        if (value) {
+            localStorage[key] = value;
+        }
+    };
+
+    this.getValue = function (key, defaultValue) {
+        return (localStorage[key] !== undefined) ? localStorage[key] : defaultValue;
+    }
 }
 
 var App = angular.module('Wikipedia', []);
