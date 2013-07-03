@@ -1,12 +1,18 @@
 {
     "name": "Wikipedia",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "icons": {
         "128": "wikipedia-icon.png"
     },
     "description": "Chrome extension for Wikipedia fans!",
+    "background": {
+        "scripts": [
+            "js/background.js"
+        ]
+    },
     "permissions": [
         "bookmarks",
+        "contextMenus",
         "tabs",
         "https://ajax.googleapis.com/",
         "*://*.wikipedia.org/",
