@@ -9,14 +9,6 @@ Please go to this page for installing this extension - https://chrome.google.com
 ## Demo
 ![Demo](demo/WikipediaChromeExtensionDemo.gif "Demo")
 
-## Screenshots
-
-![Screenshot1](screenshots/Screenshot1.png "Screenshot 1")
-
-
-![Screenshot4](screenshots/Screenshot4.png "Screenshot 4")
-
-
 ## Contribute
 
 If you like to improve this extension, please submit <a
