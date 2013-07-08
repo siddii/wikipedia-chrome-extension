@@ -75,12 +75,12 @@ function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageServi
         $scope.lang = app.defaultLang;
         $scope.tabs = app[$scope.lang].tabs;
         $scope.tabs.baseUrl = app[$scope.lang].baseUrl;
-        $scope.selectedTab = LocalStorageService.getValue(selectedTabPrefKey, $scope.tabs[0].id);
-        var tab = $scope.tabs.filter(function (tab){return tab.id === $scope.selectedTab;})[0];
+        $scope.selectedTab = LocalStorageService.getValue(selectedTabPrefKey, $scope.tabs[0]);
+        var tab = $scope.tabs.filter(function (tab){return tab.id === $scope.selectedTab.id;})[0];
         $scope.loadTab(tab);
     });
     $scope.loadTab = function (tab){
-        $scope.selectedTab = tab.id;
+        $scope.selectedTab = tab;
         if (!$scope.Feeds[tab.id]) {
             $scope.Feeds[tab.id] = WikipediaFeeds.loadFeeds(tab.feedUrl, $scope.tabs.baseUrl);
         }
@@ -108,12 +108,12 @@ function LocalStorageService () {
 
     this.setValue = function (key, value) {
         if (value) {
-            localStorage[key] = value;
+            localStorage[key] = JSON.stringify(value);
         }
     };
 
     this.getValue = function (key, defaultValue) {
-        return (localStorage[key] !== undefined) ? localStorage[key] : defaultValue;
+        return (localStorage[key] !== undefined) ? JSON.parse(localStorage[key]) : defaultValue;
     }
 }
 

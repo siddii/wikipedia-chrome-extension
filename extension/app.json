@@ -21,13 +21,13 @@
             },
             {
                 "dropdown": true,
-                "id": "dropdownCommonsPOD",
+                "id": "commonsPOD",
                 "title": "Picture of the day",
                 "feedUrl": "https://commons.wikimedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom&language=en"
             },
             {
                 "dropdown": true,
-                "id": "dropdownCommonsMedia",
+                "id": "commonsMedia",
                 "title": "Media of the day",
                 "feedUrl": "http://commons.wikimedia.org/w/api.php?action=featuredfeed&feed=motd&feedformat=rss&language=en"
             }
