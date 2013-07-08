@@ -5,7 +5,7 @@
             <div class="carousel-inner">
                 <div ng-init="Feeds[tab.id].feedIndex=$index;" ng-repeat="feed in Feeds[tab.id]" class="item" ng-class="{active : $index==(Feeds[tab.id].length-1)}">
                     <h3 class="feed-title"><a target="_blank" href="{{feed.link}}">{{feed.title}}</a></h3>
-                    <p class="text-left" ng-bind-html-unsafe="feed.content"></p>
+                    <p ng-bind-html-unsafe="feed.content"></p>
                 </div>
             </div>
             <a class="carousel-control left" ng-hide="Feeds[tab.id].feedIndex == 0;" ng-click="Feeds[tab.id].feedIndex = Feeds[tab.id].feedIndex-1;" href="#{{tab.id}}-carousel" data-slide="prev">&lsaquo;</a>

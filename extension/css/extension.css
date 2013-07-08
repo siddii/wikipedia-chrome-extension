@@ -23,6 +23,14 @@ html {
     margin-bottom: 0;
 }
 
+#commonsPOD-carousel .feed-title,#commonsMedia .feed-title{
+    padding-top: 30px;
+}
+
+#commonsPOD table{
+    width: 100%;
+}
+
 h3 {
     text-align: center;
     color: #000000;
