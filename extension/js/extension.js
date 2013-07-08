@@ -54,6 +54,22 @@ function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageServi
         LocalStorageService.setValue(selectedTabPrefKey, newValue);
     });
 
+    $scope.isDropDownTab = function (tab) {
+        return tab.dropdown;
+    };
+
+    $scope.hasSelectedDropDownTab = function(tabs, selectedTab) {
+        for(var i = 0; i < tabs.length; i++) {
+            if (tabs[i].id == selectedTab) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    $scope.isNotDropDownTab = function (tab) {
+        return !tab.dropdown;
+    };
 
     $http.get('app.json').success(function (app){
         $scope.lang = app.defaultLang;

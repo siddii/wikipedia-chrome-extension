@@ -16,8 +16,20 @@
             },
             {
                 "id": "qotd",
-                "title": "Quote Of the Day",
+                "title": "Quote of the day",
                 "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=onthisday&feedformat=atom"
+            },
+            {
+                "dropdown": true,
+                "id": "dropdownCommonsPOD",
+                "title": "Picture of the day",
+                "feedUrl": "https://commons.wikimedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom&language=en"
+            },
+            {
+                "dropdown": true,
+                "id": "dropdownCommonsMedia",
+                "title": "Media of the day",
+                "feedUrl": "http://commons.wikimedia.org/w/api.php?action=featuredfeed&feed=motd&feedformat=rss&language=en"
             }
         ]
     }

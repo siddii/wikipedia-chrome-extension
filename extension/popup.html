@@ -31,7 +31,13 @@
     </div>
 
     <ul class="nav nav-tabs">
-        <li ng-repeat="tab in tabs" ng-click="loadTab(tab);" ng-class="{active : tab.id==selectedTab}"><a href="#{{tab.id}}" data-toggle="tab">{{tab.title}}</a></li>
+        <li ng-repeat="tab in tabs | filter:isNotDropDownTab" ng-click="loadTab(tab);" ng-class="{active : tab.id==selectedTab}"><a href="#{{tab.id}}" data-toggle="tab">{{tab.title}}</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wikimedia Commons<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li ng-repeat="tab in tabs | filter:{dropdown: true}" ng-click="loadTab(tab);" ng-class="{active : tab.id==selectedTab}"><a href="#{{tab.id}}" data-toggle="tab">{{tab.title}}</a></li>
+            </ul>
+        </li>
     </ul>
 
     <div class="tab-content">
