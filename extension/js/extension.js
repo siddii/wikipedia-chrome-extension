@@ -15,18 +15,6 @@ function WikipediaFeeds(GoogleAjaxFeedService, extensionURL, LocalStorageService
                 return new Date(feed1.publishedDate) > new Date(feed2.publishedDate);
             });
         }
-        for (var i = 0; i < feedEntries.length; i++) {
-            var feedElement = angular.element('<div>' + feedEntries[i].content + '</div>');
-            feedElement.find('img').each(function (idx, imgNode) {
-                imgNode.src = imgNode.src.replace('chrome-extension://', 'http://');
-            });
-            feedElement.find('a').each(function (idx, aNode) {
-                aNode.target = "_new";
-                aNode.href = aNode.href.replace('file:', 'http:');
-                aNode.href = aNode.href.replace(extensionURL, baseURL);
-            });
-            feedEntries[i].content = feedElement.html();
-        }
         return feedEntries;
     }
 
@@ -46,7 +34,10 @@ WikipediaFeeds.$inject = ['GoogleAjaxFeedService', 'extensionURL', 'LocalStorage
 
 var selectedTabPrefKey = 'selectedTab';
 
-function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageService) {
+function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageService, extensionURL, $templateCache) {
+
+    $templateCache.put('templates/feed.html', $http.get(extensionURL + 'templates/feed.html'));
+
     $scope.Feeds = {};
     $scope.FeedIndex = {};
 
@@ -62,7 +53,7 @@ function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageServi
         return !tab.dropdown;
     };
 
-    $http.get('app.json').success(function (app){
+    $http.get(extensionURL + 'app.json').success(function (app){
         $scope.lang = app.defaultLang;
         $scope.tabs = app[$scope.lang].tabs;
         $scope.tabs.baseUrl = app[$scope.lang].baseUrl;
@@ -78,7 +69,7 @@ function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageServi
     };
 }
 
-WikipediaAppController.$inject = ['$scope', '$http', 'WikipediaFeeds', 'LocalStorageService'];
+WikipediaAppController.$inject = ['$scope', '$http', 'WikipediaFeeds', 'LocalStorageService', 'extensionURL', '$templateCache'];
 
 function LocalStorageService () {
     var cacheTime = 1000 * 60 * 30; //30 min
