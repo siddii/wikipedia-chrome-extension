@@ -29,7 +29,6 @@
                 "dropdown": true,
                 "id": "commonsMedia",
                 "title": "Media of the day",
-                "feedType": "atom",
                 "feedUrl": "http://commons.wikimedia.org/w/api.php?action=featuredfeed&feed=motd&feedformat=atom&language=en"
             }
         ]
