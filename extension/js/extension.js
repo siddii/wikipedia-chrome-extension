@@ -58,6 +58,10 @@ function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageServi
     $scope.Feeds = {};
     $scope.FeedIndex = {};
 
+    $scope.itemLoaded = function(element) {
+        console.log('####### DONE LOADING ', typeof(element));
+    };
+
     $scope.$watch(selectedTabPrefKey, function (newValue) {
         LocalStorageService.setValue(selectedTabPrefKey, newValue);
     });
@@ -133,5 +137,17 @@ App.config(function () {
 App.service('WikipediaFeeds', WikipediaFeeds);
 App.service('LocalStorageService', LocalStorageService);
 App.service('AtomFeedParser', AtomFeedParser);
+App.directive('feedsTab', function($timeout){
+    return {
+        link: function(scope, element, attrs){
+//            console.log('######## tab = ', angular.element(element).scope().tab);
+            function runPostRender() {
+                angular.element(element).find('table').css('width', '100%');
+                angular.element(element).find('div.mediaContainer').css('width', '100%');
+            }
+            $timeout(runPostRender, 0);
+        }
+    }
+});
 
 App.value('extensionURL', chrome.extension.getURL('/'));
