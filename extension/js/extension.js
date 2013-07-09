@@ -140,12 +140,12 @@ App.service('AtomFeedParser', AtomFeedParser);
 App.directive('feedsTab', function($timeout){
     return {
         link: function(scope, element, attrs){
-//            console.log('######## tab = ', angular.element(element).scope().tab);
-            function runPostRender() {
-                angular.element(element).find('table').css('width', '100%');
-                angular.element(element).find('div.mediaContainer').css('width', '100%');
+            if (scope.tab.postRenderFn) {
+                var postRenderFunc = new Function("scope", "element", "attrs", scope.tab.postRenderFn);
+                $timeout(function (){
+                    postRenderFunc(scope, element, attrs);
+                }, 0);
             }
-            $timeout(runPostRender, 0);
         }
     }
 });

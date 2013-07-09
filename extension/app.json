@@ -23,13 +23,15 @@
                 "dropdown": true,
                 "id": "commonsPOD",
                 "title": "Picture of the day",
-                "feedUrl": "https://commons.wikimedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom&language=en"
+                "feedUrl": "https://commons.wikimedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom&language=en",
+                "postRenderFn": "angular.element(element).find('table').css('width', '100%');"
             },
             {
                 "dropdown": true,
                 "id": "commonsMedia",
                 "title": "Media of the day",
-                "feedUrl": "http://commons.wikimedia.org/w/api.php?action=featuredfeed&feed=motd&feedformat=atom&language=en"
+                "feedUrl": "http://commons.wikimedia.org/w/api.php?action=featuredfeed&feed=motd&feedformat=atom&language=en",
+                "postRenderFn": "angular.element(element).find('table').css('width', '100%');angular.element(element).find('div.mediaContainer').css('width', '100%');"
             }
         ]
     }
