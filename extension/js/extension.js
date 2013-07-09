@@ -1,8 +1,21 @@
 'use strict';
 
 function GoogleAjaxFeedService($http) {
+    function sortFeedEntries(response) {
+        var feedEntries = response.responseData.feed.entries;
+        if (feedEntries.length > 0) {
+            feedEntries.sort(function (feed1, feed2) {
+                return new Date(feed1.publishedDate) > new Date(feed2.publishedDate);
+            });
+        }
+        return feedEntries;
+    }
+
     this.getFeed = function (url) {
-        return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url), {cache: true});
+        return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url), {cache: true,
+            transformResponse: function (response) {
+                return sortFeedEntries(response);
+            }});
     }
 }
 GoogleAjaxFeedService.$inject = ['$http'];
@@ -37,40 +50,21 @@ function AtomFeedParser($window) {
 AtomFeedParser.$inject = ['$window'];
 
 function WikipediaFeeds(GoogleAjaxFeedService, $http, LocalStorageService, AtomFeedParser) {
-    function parseFeeds(res) {
-        var feedEntries = res.data.responseData.feed.entries;
-        if (feedEntries.length > 0) {
-            feedEntries.sort(function (feed1, feed2) {
-                return new Date(feed1.publishedDate) > new Date(feed2.publishedDate);
-            });
-        }
-        return feedEntries;
-    }
-
     this.loadFeeds = function (tab) {
         var feedUrl = tab.feedUrl;
         var feedData = LocalStorageService.getCache(feedUrl);
         if (feedData !== null) {
             return feedData;
         }
-        if (tab.feedType === 'atom') {
-            return $http.get(feedUrl,
-                {
-                    transformResponse: function (response) {
-                        return AtomFeedParser.toJSON(response);
-                    }
-                }).then(function (response) {
-                    LocalStorageService.setCache(feedUrl, response.data);
-                    return response.data;
-                });
-        }
-        else {
-            return GoogleAjaxFeedService.getFeed(feedUrl).then(function (res) {
-                var feedData = parseFeeds(res);
-                LocalStorageService.setCache(feedUrl, feedData);
-                return feedData;
+        return $http.get(feedUrl,
+            {
+                transformResponse: function (response) {
+                    return AtomFeedParser.toJSON(response);
+                }
+            }).then(function (response) {
+                LocalStorageService.setCache(feedUrl, response.data);
+                return response.data;
             });
-        }
     };
 }
 WikipediaFeeds.$inject = ['GoogleAjaxFeedService', '$http', 'LocalStorageService', 'AtomFeedParser'];
