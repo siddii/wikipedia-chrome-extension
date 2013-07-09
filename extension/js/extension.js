@@ -58,10 +58,6 @@ function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageServi
     $scope.Feeds = {};
     $scope.FeedIndex = {};
 
-    $scope.itemLoaded = function(element) {
-        console.log('####### DONE LOADING ', typeof(element));
-    };
-
     $scope.$watch(selectedTabPrefKey, function (newValue) {
         LocalStorageService.setValue(selectedTabPrefKey, newValue);
     });
@@ -77,7 +73,7 @@ function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageServi
     $http.get(extensionURL + 'app.json').success(function (app) {
         $scope.lang = app.defaultLang;
         $scope.tabs = app[$scope.lang].tabs;
-        $scope.tabs.baseUrl = app[$scope.lang].baseUrl;
+        $scope.baseUrl = app[$scope.lang].baseUrl;
         $scope.selectedTab = LocalStorageService.getValue(selectedTabPrefKey, $scope.tabs[0]);
         var tab = $scope.tabs.filter(function (tab) {
             return tab.id === $scope.selectedTab.id;

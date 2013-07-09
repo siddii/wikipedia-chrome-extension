@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-csp ng-app="Wikipedia">
+<html lang="en" ng-csp ng-app="Wikipedia" ng-controller="WikipediaAppController">
 <head>
     <meta charset="utf-8">
     <title>Wikipedia Chrome Extension</title>
@@ -17,11 +17,10 @@
     <script src="angular/angular.js"></script>
     <script src="angular/angular-sanitize.js"></script>
     <script src="js/extension.js"></script>
-    <base href="http://en.wikipedia.org/" target="_new">
+    <base href="{{baseUrl}}" target="_new">
 </head>
 
-<body ng-controller="WikipediaAppController">
-
+<body>
 <div class="container">
     <div class="row-fluid">
         <div class="span12">
