@@ -9,8 +9,9 @@ Please go to this page for installing this extension - https://chrome.google.com
 ## Demo
 ![Demo](demo/WikipediaChromeExtensionDemo.gif "Demo")
 
-## Change Log
-* 1.0.3 Added tabs for Wikimedia Commons picture & media
+## Version Notes
+* 1.0.3
+    * Added tabs for Wikimedia Commons picture & media
 
 
 
