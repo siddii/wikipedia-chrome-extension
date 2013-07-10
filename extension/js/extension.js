@@ -29,6 +29,13 @@ function AtomFeedParser($window) {
 
 AtomFeedParser.$inject = ['$window'];
 
+//function RandomArticleController($scope, $http){
+//    $http.get('http://en.wikipedia.org/wiki/Special:Random').then(function (response) {
+//        console.log('Response = ', response);
+//        $scope.pageContent = response.data;
+//    });
+//}
+
 function WikipediaFeeds($http, LocalStorageService, AtomFeedParser) {
     this.loadFeeds = function (tab) {
         var feedUrl = tab.feedUrl ? tab.feedUrl : tab.pageUrl;
@@ -36,17 +43,23 @@ function WikipediaFeeds($http, LocalStorageService, AtomFeedParser) {
         if (feedData !== null) {
             return feedData;
         }
-        console.log('############ feedUrl = ', feedUrl, tab);
-        return $http.get(feedUrl,
-            {
-                transformResponse: function (response) {
-                    console.log('######## Response = ', response);
-                    return tab.feedUrl ? AtomFeedParser.toJSON(response) : response;
-                }
-            }).then(function (response) {
-                LocalStorageService.setCache(feedUrl, response.data);
-                return response.data;
+        if (tab.feedUrl) {
+            return $http.get(feedUrl,
+                {
+                    transformResponse: function (response) {
+                        return tab.feedUrl ? AtomFeedParser.toJSON(response) : response;
+                    }
+                }).then(function (response) {
+                    LocalStorageService.setCache(feedUrl, response.data);
+                    return response.data;
+                });
+        }
+        else {
+            return  $http.get(feedUrl).then(function (response) {
+                    return [{feed: {content: response.data}}];
             });
+        }
+
     };
 }
 WikipediaFeeds.$inject = ['$http', 'LocalStorageService', 'AtomFeedParser'];
