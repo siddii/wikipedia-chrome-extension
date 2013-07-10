@@ -15,9 +15,9 @@
                 "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom"
             },
             {
-                "id": "qotd",
-                "title": "Quote of the day",
-                "feedUrl": "http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=onthisday&feedformat=atom"
+                "id": "randomArticle",
+                "title": "Random Article",
+                "pageUrl": "http://en.wikipedia.org/wiki/Special:Random"
             },
             {
                 "dropdown": true,

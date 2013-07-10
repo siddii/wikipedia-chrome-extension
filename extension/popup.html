@@ -41,7 +41,10 @@
 
     <div class="tab-content">
         <div id="{{tab.id}}" ng-repeat="tab in tabs" class="tab-pane fade in" ng-class="{active : tab.id==selectedTab.id}">
-            <ng-include src="'templates/feed.html'"></ng-include>
+            <ng-switch on="feedType(tab)">
+                <ng-include ng-switch-when="page" src="'templates/page.html'"></ng-include>
+                <ng-include ng-switch-default src="'templates/feed.html'"></ng-include>
+            </ng-switch>
         </div>
     </div>
 </div>

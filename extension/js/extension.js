@@ -31,15 +31,17 @@ AtomFeedParser.$inject = ['$window'];
 
 function WikipediaFeeds($http, LocalStorageService, AtomFeedParser) {
     this.loadFeeds = function (tab) {
-        var feedUrl = tab.feedUrl;
+        var feedUrl = tab.feedUrl ? tab.feedUrl : tab.pageUrl;
         var feedData = LocalStorageService.getCache(feedUrl);
         if (feedData !== null) {
             return feedData;
         }
+        console.log('############ feedUrl = ', feedUrl, tab);
         return $http.get(feedUrl,
             {
                 transformResponse: function (response) {
-                    return AtomFeedParser.toJSON(response);
+                    console.log('######## Response = ', response);
+                    return tab.feedUrl ? AtomFeedParser.toJSON(response) : response;
                 }
             }).then(function (response) {
                 LocalStorageService.setCache(feedUrl, response.data);
@@ -54,6 +56,7 @@ var selectedTabPrefKey = 'selectedTab';
 function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageService, extensionURL, $templateCache) {
 
     $templateCache.put('templates/feed.html', $http.get(extensionURL + 'templates/feed.html'));
+    $templateCache.put('templates/page.html', $http.get(extensionURL + 'templates/page.html'));
 
     $scope.Feeds = {};
     $scope.FeedIndex = {};
@@ -61,6 +64,12 @@ function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageServi
     $scope.$watch(selectedTabPrefKey, function (newValue) {
         LocalStorageService.setValue(selectedTabPrefKey, newValue);
     });
+
+    $scope.feedType = function(tab) {
+        var feedType = tab.feedUrl ? 'feed' : 'page';
+        console.log('######## feedType = ', feedType);
+        return  feedType;
+    };
 
     $scope.isDropDownTab = function (tab) {
         return tab.dropdown;
