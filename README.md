@@ -10,6 +10,8 @@ Please go to this page for installing this extension - https://chrome.google.com
 ![Demo](demo/WikipediaChromeExtensionDemo.gif "Demo")
 
 ## Version Notes
+* 1.0.4
+    * Added tab for Random Article
 * 1.0.3
     * Added tabs for Wikimedia Commons picture & media
 
