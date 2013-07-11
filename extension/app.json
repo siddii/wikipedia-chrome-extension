@@ -18,7 +18,7 @@
                 "id": "randomArticle",
                 "title": "Random Article",
                 "pageUrl": "http://en.wikipedia.org/wiki/Special:Random",
-                "preRenderFn": "var $temp = angular.element('<div></div>');$temp.html(response.data);$temp.find('#siteSub,#contentSub,#jump-to-nav').remove();var pageContent = $temp.find('#content').html();$temp.remove();response.data = pageContent"
+                "preRenderFn": "var $temp = angular.element('<div></div>');$temp.html(response.data);var readStr='Read';$temp.find('#firstHeading').wrap($temp.find('#right-navigation span a:contains('+readStr+')').html(''));$temp.find('#siteSub,#contentSub,#jump-to-nav').remove();var pageContent = $temp.find('#content').html();$temp.remove();response.data = pageContent"
             },
             {
                 "dropdown": true,
