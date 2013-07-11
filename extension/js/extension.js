@@ -56,7 +56,11 @@ function WikipediaFeeds($http, LocalStorageService, AtomFeedParser) {
         }
         else {
             return  $http.get(feedUrl).then(function (response) {
-                    return [{feed: {content: response.data}}];
+                    var $temp = $('<div></div>');
+                    $temp.html(response.data);
+                    var pageContent = $temp.find('#content').html();
+                    $temp.remove();
+                    return [{feed: {content: pageContent}}];
             });
         }
 
