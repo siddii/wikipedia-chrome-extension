@@ -29,13 +29,6 @@ function AtomFeedParser($window) {
 
 AtomFeedParser.$inject = ['$window'];
 
-//function RandomArticleController($scope, $http){
-//    $http.get('http://en.wikipedia.org/wiki/Special:Random').then(function (response) {
-//        console.log('Response = ', response);
-//        $scope.pageContent = response.data;
-//    });
-//}
-
 function WikipediaFeeds($http, LocalStorageService, AtomFeedParser) {
     this.loadFeeds = function (tab) {
         var feedUrl = tab.feedUrl ? tab.feedUrl : tab.pageUrl;
@@ -56,11 +49,10 @@ function WikipediaFeeds($http, LocalStorageService, AtomFeedParser) {
         }
         else {
             return  $http.get(feedUrl).then(function (response) {
-                    var $temp = $('<div></div>');
-                    $temp.html(response.data);
-                    var pageContent = $temp.find('#content').html();
-                    $temp.remove();
-                    return [{feed: {content: pageContent}}];
+                    if (tab.preRenderFn) {
+                        new Function("response", tab.preRenderFn)(response);
+                    }
+                    return [{feed: {content: response.data}}];
             });
         }
 
@@ -84,7 +76,6 @@ function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageServi
 
     $scope.feedType = function(tab) {
         var feedType = tab.feedUrl ? 'feed' : 'page';
-        console.log('######## feedType = ', feedType);
         return  feedType;
     };
 
