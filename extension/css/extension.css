@@ -4,6 +4,10 @@ html {
     overflow: auto;
 }
 
+audio {
+    padding-top: 10px;
+}
+
 .feed-title {
     text-decoration: underline;
 }
