@@ -11,8 +11,8 @@ Please go to this page for installing this extension - https://chrome.google.com
 
 ## Contribute
 If you like to improve this extension, please submit <a
-            href="https://github.com/siddii/wikipedia-chrome-extension/pulls" target="_new">pull request</a> or create <a
-            href="https://github.com/siddii/wikipedia-chrome-extension/issues" target="_new">issue</a> to contribute to this
+            href="https://github.com/siddii/wikipedia-chrome-extension/pulls" target="_new">pull requests</a> or create <a
+            href="https://github.com/siddii/wikipedia-chrome-extension/issues" target="_new">issues</a> to contribute to this
         project :)
 
 ## Version Notes
