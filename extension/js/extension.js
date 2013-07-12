@@ -98,22 +98,24 @@ function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageServi
     };
 
     $http.get(extensionURL + 'app.json').success(function (app) {
+        $scope.app = app;
         $scope.lang = app.defaultLang;
-        $scope.tabs = app[$scope.lang].tabs;
-        $scope.dropdowns = [];
-        $scope.tabs.filter(function (element){
-            if (element.dropdown && $scope.dropdowns.indexOf(element.dropdown) === -1) {
-                $scope.dropdowns.push(element.dropdown);
-            }
+
+        $http.get(extensionURL + app[$scope.lang].settingsUrl).success(function (settings) {
+            $scope.tabs = settings.tabs;
+            $scope.dropdowns = [];
+            $scope.tabs.filter(function (element){
+                if (element.dropdown && $scope.dropdowns.indexOf(element.dropdown) === -1) {
+                    $scope.dropdowns.push(element.dropdown);
+                }
+            });
+            $scope.baseUrl = settings.baseUrl;
+            $scope.selectedTab = LocalStorageService.getValue(selectedTabPrefKey, $scope.tabs[0]);
+            var tab = $scope.tabs.filter(function (tab) {
+                return tab.id === $scope.selectedTab.id;
+            })[0];
+            $scope.loadTab(tab);
         });
-
-
-        $scope.baseUrl = app[$scope.lang].baseUrl;
-        $scope.selectedTab = LocalStorageService.getValue(selectedTabPrefKey, $scope.tabs[0]);
-        var tab = $scope.tabs.filter(function (tab) {
-            return tab.id === $scope.selectedTab.id;
-        })[0];
-        $scope.loadTab(tab);
     });
     $scope.loadTab = function (tab) {
         $scope.selectedTab = tab;

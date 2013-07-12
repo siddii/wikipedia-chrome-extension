@@ -1,0 +1,13 @@
+{
+    "language": "Español",
+    "baseUrl": "http://es.wikipedia.org/",
+    "tabs": [
+        {
+            "dropdown": "Featured Content",
+            "id": "featuredArticles",
+            "title": "Artículo destacado",
+            "pageUrl": "http://es.wikipedia.org/wiki/Wikipedia:Art%C3%ADculos_destacados",
+            "preRenderFn": "var $temp = angular.element('<div></div>');$temp.html(response.data);var readStr='Read';$temp.find('#firstHeading').wrap($temp.find('#right-navigation span a:contains('+readStr+')').html(''));$temp.find('#siteSub,#contentSub,#jump-to-nav').remove();var pageContent = $temp.find('#content').html();$temp.remove();response.data = pageContent"
+        }
+    ]
+}
