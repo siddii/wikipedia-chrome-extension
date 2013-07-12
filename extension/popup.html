@@ -30,13 +30,14 @@
     </div>
 
     <ul class="nav nav-tabs">
-        <li ng-repeat="tab in tabs | filter:isNotDropDownTab" ng-click="loadTab(tab);" ng-class="{active : tab.id==selectedTab.id}"><a href="#{{tab.id}}" data-toggle="tab">{{tab.title}}</a></li>
-        <li class="dropdown" ng-class="{active : selectedTab.dropdown}">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wikimedia Commons<b class="caret"></b></a>
+        <li ng-repeat="dropdown in dropdowns" class="dropdown" ng-class="{active : selectedTab.dropdown == dropdown}">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{dropdown}} <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li ng-repeat="tab in tabs | filter:{dropdown: true}" ng-click="loadTab(tab);" ng-class="{active : tab.id==selectedTab.id}"><a href="#{{tab.id}}" data-toggle="tab">{{tab.title}}</a></li>
+                <li ng-repeat="tab in getTabsForDropdown(dropdown)" ng-click="loadTab(tab);" ng-class="{active : tab.id==selectedTab.id}"><a href="#{{tab.id}}" data-toggle="tab">{{tab.title}}</a></li>
             </ul>
         </li>
+
+        <li ng-repeat="tab in tabs | filter:isNotDropDownTab" ng-click="loadTab(tab);" ng-class="{active : tab.id==selectedTab.id}"><a href="#{{tab.id}}" data-toggle="tab">{{tab.title}}</a></li>
     </ul>
 
     <div class="tab-content">

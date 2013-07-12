@@ -87,9 +87,27 @@ function WikipediaAppController($scope, $http, WikipediaFeeds, LocalStorageServi
         return !tab.dropdown;
     };
 
+    $scope.getTabsForDropdown = function (dropdown) {
+      var tabs = [];
+      for(var i=0; i < $scope.tabs.length; i++) {
+          if ($scope.tabs[i].dropdown === dropdown) {
+              tabs.push($scope.tabs[i]);
+          }
+      }
+      return tabs;
+    };
+
     $http.get(extensionURL + 'app.json').success(function (app) {
         $scope.lang = app.defaultLang;
         $scope.tabs = app[$scope.lang].tabs;
+        $scope.dropdowns = [];
+        $scope.tabs.filter(function (element){
+            if (element.dropdown && $scope.dropdowns.indexOf(element.dropdown) === -1) {
+                $scope.dropdowns.push(element.dropdown);
+            }
+        });
+
+
         $scope.baseUrl = app[$scope.lang].baseUrl;
         $scope.selectedTab = LocalStorageService.getValue(selectedTabPrefKey, $scope.tabs[0]);
         var tab = $scope.tabs.filter(function (tab) {
